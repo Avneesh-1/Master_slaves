@@ -1,0 +1,298 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:MasterSlaves.Avalonia.ViewModels"
+        xmlns:views="using:MasterSlaves.Avalonia.Views"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="1200" d:DesignHeight="800"
+        x:Class="MasterSlaves.Avalonia.Views.MainWindow"
+        x:DataType="vm:MainWindowViewModel"
+        Icon="/Assets/avalonia-logo.ico"
+        Title="Gas Monitoring Control Panel"
+        WindowStartupLocation="CenterScreen"
+        WindowState="Maximized"
+        Background="#F5F5F5">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        
+        <!-- Main Content Layer -->
+        <Grid Grid.Row="0" Grid.Column="0">
+            <!-- Master Screen - Professional Control Panel Layout -->
+            <Grid IsVisible="{Binding !IsSlaveSelected}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <!-- Main Control Panel -->
+            <Border Grid.Row="0" Background="#2D2D2D" Margin="40" CornerRadius="10">
+                <Border.Effect>
+                    <DropShadowEffect Color="#000000" BlurRadius="20" Opacity="0.3"/>
+                </Border.Effect>
+                
+                                <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+                    <Grid Margin="30">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        
+
+                        
+                        <!-- MENU, ALARM ACTIVE, BUZZER ALARM Button and UNISSI Logo at Top Right -->
+                        <Border Grid.Row="0" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,5,0,0">
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                                <!-- MENU Button -->
+                                <Button Content="MENU" 
+                                        Margin="0,0,31,0" Padding="15,8,15,8"
+                                        FontWeight="Bold" FontSize="12"
+                                        CornerRadius="8"
+                                        HorizontalAlignment="Left" VerticalAlignment="Center"
+                                        HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                                        MinHeight="35" Width="154"
+                                        Command="{Binding OpenMenuCommand}">
+                                    <Button.Styles>
+                                        <Style Selector="Button">
+                                            <Setter Property="Background" Value="#404040"/>
+                                            <Setter Property="Foreground" Value="#FFFFFF"/>
+                                            <Setter Property="BorderThickness" Value="8"/>
+                                            <Setter Property="BorderBrush" Value="#87CEEB"/>
+                                            <Setter Property="CornerRadius" Value="50"/>
+                                        </Style>
+                                        <Style Selector="Button:pointerover">
+                                            <Setter Property="Background" Value="#505050"/>
+                                            <Setter Property="BorderBrush" Value="#ADD8E6"/>
+                                            <Setter Property="BorderThickness" Value="8"/>
+                                            <Setter Property="CornerRadius" Value="50"/>
+                                        </Style>
+                                        <Style Selector="Button:pressed">
+                                            <Setter Property="Background" Value="#303030"/>
+                                            <Setter Property="BorderThickness" Value="8"/>
+                                            <Setter Property="CornerRadius" Value="50"/>
+                                        </Style>
+                                    </Button.Styles>
+                                </Button>
+                                
+                                <!-- ALARM ACTIVE Button -->
+                                <Button Content="ALARM ACTIVE" 
+                                        Margin="0,0,31,0" Padding="15,8,15,8"
+                                        FontWeight="Bold" FontSize="12"
+                                        CornerRadius="8"
+                                        HorizontalAlignment="Left" VerticalAlignment="Center"
+                                        HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                                        MinHeight="35"  Width="350">
+                                    <Button.Styles>
+                                        <Style Selector="Button">
+                                            <Setter Property="Background" Value="#F44336"/>
+                                            <Setter Property="Foreground" Value="#FFFFFF"/>
+                                            <Setter Property="BorderThickness" Value="8"/>
+                                            <Setter Property="BorderBrush" Value="#87CEEB"/>
+                                            <Setter Property="CornerRadius" Value="50"/>
+                                        </Style>
+                                        <Style Selector="Button:pointerover">
+                                            <Setter Property="Background" Value="#EF5350"/>
+                                            <Setter Property="BorderBrush" Value="#ADD8E6"/>
+                                            <Setter Property="BorderThickness" Value="8"/>
+                                            <Setter Property="CornerRadius" Value="50"/>
+                                        </Style>
+                                        <Style Selector="Button:pressed">
+                                            <Setter Property="Background" Value="#D32F2F"/>
+                                            <Setter Property="BorderThickness" Value="8"/>
+                                            <Setter Property="CornerRadius" Value="50"/>
+                                        </Style>
+                                    </Button.Styles>
+                                </Button>
+                                
+                                <!-- BUZZER ALARM Button -->
+                                <Button Content="BUZZER ALARM" 
+                                        Margin="0,0,48,0" Padding="15,8,15,8"
+                                        FontWeight="Bold" FontSize="12"
+                                        CornerRadius="8"
+                                        HorizontalAlignment="Left" VerticalAlignment="Center"
+                                        HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                                        MinHeight="35" Width="350"
+                                        Command="{Binding BuzzerAlarmCommand}">
+                                    <Button.Styles>
+                                        <Style Selector="Button">
+                                            <Setter Property="Background" Value="#4CAF50"/>
+                                            <Setter Property="Foreground" Value="#FFFFFF"/>
+                                            <Setter Property="BorderThickness" Value="8"/>
+                                            <Setter Property="BorderBrush" Value="#87CEEB"/>
+                                            <Setter Property="CornerRadius" Value="50"/>
+                                        </Style>
+                                        <Style Selector="Button:pointerover">
+                                            <Setter Property="Background" Value="#66BB6A"/>
+                                            <Setter Property="BorderBrush" Value="#ADD8E6"/>
+                                            <Setter Property="BorderThickness" Value="8"/>
+                                            <Setter Property="CornerRadius" Value="50"/>
+                                        </Style>
+                                        <Style Selector="Button:pressed">
+                                            <Setter Property="Background" Value="#388E3C"/>
+                                            <Setter Property="BorderThickness" Value="8"/>
+                                            <Setter Property="CornerRadius" Value="50"/>
+                                        </Style>
+                                    </Button.Styles>
+                                </Button>
+                                
+                                <!-- UNISSI Logo -->
+                                <Image Source="/Assets/Images/UnissiLogo__1removebg.png" 
+                                       Width="158" Height="75" 
+                                       HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </Border>
+                        
+                        <!-- 3x10 Grid of Input Buttons - Large and Spread -->
+                        <ItemsControl Grid.Row="1" ItemsSource="{Binding SlaveButtons}" 
+                                       HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <UniformGrid Columns="6" Rows="5" HorizontalAlignment="Stretch"/>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Button Command="{Binding $parent[Window].DataContext.SelectSlaveCommand}"
+                                        CommandParameter="{Binding Id}"
+                                        Margin="15,15,15,20" Padding="2,6,2,8"
+                                        FontWeight="Bold" FontSize="11"
+                                        CornerRadius="8"
+                                        HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                                        HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                                        MinHeight="35">
+                                                    <Button.Styles>
+                    <Style Selector="Button">
+                        <Setter Property="Background" Value="#4CAF50"/>
+                        <Setter Property="Foreground" Value="#FFFFFF"/>
+                        <Setter Property="BorderThickness" Value="8"/>
+                        <Setter Property="BorderBrush" Value="#87CEEB"/>
+                        <Setter Property="CornerRadius" Value="50"/>
+                    </Style>
+                    <Style Selector="Button:pointerover">
+                        <Setter Property="Background" Value="#66BB6A"/>
+                        <Setter Property="BorderBrush" Value="#ADD8E6"/>
+                        <Setter Property="BorderThickness" Value="8"/>
+                        <Setter Property="CornerRadius" Value="50"/>
+                    </Style>
+                    <Style Selector="Button:pressed">
+                        <Setter Property="Background" Value="#388E3C"/>
+                        <Setter Property="BorderThickness" Value="8"/>
+                        <Setter Property="CornerRadius" Value="50"/>
+                    </Style>
+                    <!-- Red style for alarm state -->
+                    <Style Selector="Button.alarm">
+                        <Setter Property="Background" Value="#F44336"/>
+                        <Setter Property="BorderBrush" Value="#EF5350"/>
+                        <Setter Property="BorderThickness" Value="8"/>
+                        <Setter Property="CornerRadius" Value="50"/>
+                    </Style>
+                    <!-- Yellow style for warning state -->
+                    <Style Selector="Button.warning">
+                        <Setter Property="Background" Value="#FF9800"/>
+                        <Setter Property="BorderBrush" Value="#FFB74D"/>
+                        <Setter Property="Foreground" Value="Black"/>
+                        <Setter Property="BorderThickness" Value="8"/>
+                        <Setter Property="CornerRadius" Value="50"/>
+                    </Style>
+                </Button.Styles>
+                                    <TextBlock Text="{Binding DisplayName}" 
+                                               FontWeight="Bold" FontSize="16"
+                                               Foreground="#FFFFFF">
+                                        <TextBlock.Effect>
+                                            <DropShadowEffect Color="#FFFFFF" BlurRadius="4" Opacity="0.6"/>
+                                        </TextBlock.Effect>
+                                    </TextBlock>
+                                </Button>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                    
+
+                    
+
+                </Grid>
+                </ScrollViewer>
+            </Border>
+        </Grid>
+
+        <!-- Slave Detail Screen -->
+        <Grid Grid.Row="0" Grid.Column="0" IsVisible="{Binding IsSlaveSelected}">
+            <ContentControl Content="{Binding SlaveDetailViewModel}">
+                <ContentControl.ContentTemplate>
+                    <DataTemplate>
+                        <views:SlaveDetailView/>
+                    </DataTemplate>
+                </ContentControl.ContentTemplate>
+            </ContentControl>
+        </Grid>
+
+        <!-- Settings Screen -->
+        <Grid Grid.Row="0" Grid.Column="0" IsVisible="{Binding IsSettingsOpen}">
+            <ContentControl Content="{Binding SettingsViewModel}">
+                <ContentControl.ContentTemplate>
+                    <DataTemplate>
+                        <views:SettingsView/>
+                    </DataTemplate>
+                </ContentControl.ContentTemplate>
+            </ContentControl>
+        </Grid>
+        </Grid>
+        
+        <!-- Menu Overlay Layer (on top) -->
+        <Grid Grid.Row="0" Grid.Column="0" IsVisible="{Binding IsMenuOpen}">
+            <!-- Blur Overlay Background -->
+            <Border Background="#80000000"
+                    HorizontalAlignment="Stretch" 
+                    VerticalAlignment="Stretch">
+                <Border.Effect>
+                    <BlurEffect Radius="10"/>
+                </Border.Effect>
+            </Border>
+            
+            <!-- Side Menu Panel -->
+            <Border Background="#2D2D2D" 
+                    Width="300" 
+                    HorizontalAlignment="Left" 
+                    VerticalAlignment="Stretch"
+                    Opacity="0.98">
+                <Border.Effect>
+                    <DropShadowEffect Color="#000000" BlurRadius="20" Opacity="0.5"/>
+                </Border.Effect>
+                
+                <StackPanel Margin="20" Spacing="15">
+                    <!-- Close Menu Button -->
+                    <Button Content="✕" 
+                            Background="Transparent" 
+                            Foreground="White"
+                            FontSize="20" FontWeight="Bold"
+                            HorizontalAlignment="Right"
+                            Width="40" Height="40"
+                            Command="{Binding CloseMenuCommand}"/>
+                    
+                    <!-- Menu Title -->
+                    <Border HorizontalAlignment="Center" Margin="0,20,0,30">
+                        <Image Source="/Assets/Images/UnissiLogo__1removebg.png" 
+                               Width="200" Height="60" 
+                               HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Border>
+                    
+                    <!-- Settings Button -->
+                    <Button Content="SETTINGS" 
+                            Background="#404040" 
+                            Foreground="White"
+                            Padding="20,15" 
+                            FontWeight="Bold" FontSize="16"
+                            CornerRadius="8" BorderThickness="2"
+                            BorderBrush="#87CEEB"
+                            HorizontalAlignment="Stretch"
+                            Command="{Binding OpenSettingsCommand}"/>
+                </StackPanel>
+            </Border>
+        </Grid>
+    </Grid>
+</Window>

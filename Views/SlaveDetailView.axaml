@@ -1,0 +1,226 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:MasterSlaves.Avalonia.ViewModels"
+             xmlns:converters="using:MasterSlaves.Avalonia.Converters"
+             xmlns:models="using:MasterSlaves.Core.Models"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="1400" d:DesignHeight="900"
+             x:Class="MasterSlaves.Avalonia.Views.SlaveDetailView"
+             x:DataType="vm:SlaveDetailViewModel"
+             Background="#0F1419">
+
+    <UserControl.Resources>
+        <converters:GasStatusConverter x:Key="GasStatusConverter"/>
+        <converters:GasModeConverter x:Key="GasModeConverter"/>
+        <converters:GasTypeColorConverter x:Key="GasTypeColorConverter"/>
+        <converters:GasTypeDisplayNameConverter x:Key="GasTypeDisplayNameConverter"/>
+        <converters:GasTypeUnitConverter x:Key="GasTypeUnitConverter"/>
+        
+        <!-- Modern Professional Color Scheme -->
+        <SolidColorBrush x:Key="PrimaryBlue" Color="#1E3A8A"/>
+        <SolidColorBrush x:Key="SecondaryBlue" Color="#3B82F6"/>
+        <SolidColorBrush x:Key="AccentGreen" Color="#10B981"/>
+        <SolidColorBrush x:Key="WarningOrange" Color="#F59E0B"/>
+        <SolidColorBrush x:Key="DangerRed" Color="#EF4444"/>
+        <SolidColorBrush x:Key="DarkGray" Color="#1F2937"/>
+        <SolidColorBrush x:Key="LightGray" Color="#374151"/>
+        <SolidColorBrush x:Key="TextWhite" Color="#FFFFFF"/>
+        <SolidColorBrush x:Key="TextGray" Color="#9CA3AF"/>
+        <SolidColorBrush x:Key="CardBackground" Color="#111827"/>
+        <SolidColorBrush x:Key="BorderColor" Color="#374151"/>
+        
+        <!-- Modern Gradients -->
+        <LinearGradientBrush x:Key="HeaderGradient" StartPoint="0,0" EndPoint="1,0">
+            <GradientStop Color="#1E3A8A" Offset="0"/>
+            <GradientStop Color="#3B82F6" Offset="1"/>
+        </LinearGradientBrush>
+        
+        <LinearGradientBrush x:Key="CardGradient" StartPoint="0,0" EndPoint="0,1">
+            <GradientStop Color="#1F2937" Offset="0"/>
+            <GradientStop Color="#111827" Offset="1"/>
+        </LinearGradientBrush>
+    </UserControl.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Modern Professional Header -->
+        <Border Grid.Row="0" Background="{StaticResource HeaderGradient}" Padding="30,20">
+            <Border.Effect>
+                <DropShadowEffect Color="#000000" BlurRadius="20" Opacity="0.3"/>
+            </Border.Effect>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                
+                <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                    <TextBlock Text="{Binding SlaveName}" FontSize="32" FontWeight="Bold" 
+                               Foreground="{StaticResource TextWhite}" FontFamily="Segoe UI"
+                               Effect="{x:Null}">
+                        <TextBlock.Effect>
+                            <DropShadowEffect Color="#000000" BlurRadius="2" Opacity="0.5"/>
+                        </TextBlock.Effect>
+                    </TextBlock>
+                    <TextBlock Text="GAS MONITORING DISPLAY - REAL-TIME DATA" 
+                               FontSize="14" Foreground="{StaticResource TextGray}" Margin="0,8,0,0"
+                               FontWeight="Medium"/>
+                </StackPanel>
+                
+                <Button Grid.Column="1" Content="← BACK TO MASTER" 
+                        Command="{Binding BackToMasterCommand}"
+                        Background="{StaticResource LightGray}" Foreground="{StaticResource TextWhite}"
+                        Padding="24,14" FontWeight="Bold" FontSize="13"
+                        CornerRadius="10">
+                    <Button.Effect>
+                        <DropShadowEffect Color="#000000" BlurRadius="8" Opacity="0.3"/>
+                    </Button.Effect>
+                </Button>
+            </Grid>
+        </Border>
+
+        <!-- Enhanced Gas Display Area -->
+        <Border Grid.Row="1" Background="{StaticResource CardGradient}" Padding="30">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                
+                <!-- Enhanced Gas Display Title -->
+                <Border Grid.Row="0" Background="{StaticResource DarkGray}" CornerRadius="15" 
+                        Padding="20,15" Margin="0,0,0,25">
+                    <Border.Effect>
+                        <DropShadowEffect Color="#000000" BlurRadius="15" Opacity="0.4"/>
+                    </Border.Effect>
+                    <StackPanel>
+                        <TextBlock Text="GAS PRESSURE MONITORING" 
+                                   FontSize="22" FontWeight="Bold" Foreground="{StaticResource TextWhite}"
+                                   HorizontalAlignment="Center" FontFamily="Segoe UI"/>
+                        <TextBlock Text="{Binding VisibleGasReadings.Count, StringFormat='Gas Count: {0}'}" 
+                                   FontSize="12" Foreground="Yellow" HorizontalAlignment="Center" Margin="0,5,0,0"/>
+                    </StackPanel>
+                </Border>
+
+                <!-- Enhanced Horizontal Gas Display Panels -->
+                <ScrollViewer Grid.Row="1" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
+                    <ItemsControl ItemsSource="{Binding VisibleGasReadings}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <UniformGrid Columns="6" Rows="1"/>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Border Margin="8" CornerRadius="20" Padding="0"
+                                        Background="#2D3748"
+                                        BorderThickness="2" BorderBrush="#4A5568"
+                                        MinWidth="180" MinHeight="200">
+                                    <Border.Effect>
+                                        <DropShadowEffect Color="#000000" BlurRadius="20" Opacity="0.4"/>
+                                    </Border.Effect>
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="*"/>
+                                            <RowDefinition Height="Auto"/>
+                                        </Grid.RowDefinitions>
+                                        
+                                        <!-- Enhanced Gas Name Header -->
+                                        <Border Grid.Row="0" Background="{Binding GasType, Converter={StaticResource GasTypeColorConverter}}" 
+                                                CornerRadius="18,18,0,0" Padding="16,12">
+                                            <Border.Effect>
+                                                <DropShadowEffect Color="#000000" BlurRadius="5" Opacity="0.3"/>
+                                            </Border.Effect>
+                                            <TextBlock Text="{Binding GasType, Converter={StaticResource GasTypeDisplayNameConverter}}"
+                                                       FontSize="14" FontWeight="Bold" 
+                                                       Foreground="White"
+                                                       HorizontalAlignment="Center" FontFamily="Segoe UI"/>
+                                        </Border>
+                                        
+                                        <!-- Enhanced Value Display -->
+                                        <Border Grid.Row="1" Background="White" 
+                                                Padding="20,25" Margin="3,0,3,0">
+                                            <StackPanel>
+                                                <TextBlock Text="{Binding Value, StringFormat='{}{0:F1}'}"
+                                                           FontSize="28" FontWeight="Bold" 
+                                                           Foreground="{Binding GasType, Converter={StaticResource GasTypeColorConverter}}"
+                                                           HorizontalAlignment="Center" FontFamily="Segoe UI"/>
+                                                
+                                                <TextBlock Text="{Binding GasType, Converter={StaticResource GasTypeUnitConverter}}"
+                                                           FontSize="12" Foreground="#6B7280" 
+                                                           HorizontalAlignment="Center" Margin="0,4,0,0"
+                                                           FontWeight="Bold" FontFamily="Segoe UI"/>
+                                                
+                                                <TextBlock Text="{Binding FlowValue, StringFormat='Flow: {0:F1}'}"
+                                                           FontSize="10" Foreground="#6B7280" 
+                                                           HorizontalAlignment="Center" Margin="0,4,0,0"
+                                                           FontWeight="Medium" FontFamily="Segoe UI"/>
+                                            </StackPanel>
+                                        </Border>
+                                        
+                                        <!-- Enhanced Status Footer -->
+                                        <Border Grid.Row="2" Background="{Binding Status, Converter={StaticResource GasStatusConverter}}" 
+                                                CornerRadius="0,0,18,18" Padding="12,8">
+                                            <Border.Effect>
+                                                <DropShadowEffect Color="#000000" BlurRadius="5" Opacity="0.3"/>
+                                            </Border.Effect>
+                                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                                <Ellipse Width="8" Height="8" Fill="White" Margin="0,0,6,0"/>
+                                                <TextBlock Text="{Binding Status}" FontSize="10" 
+                                                           Foreground="White" 
+                                                           VerticalAlignment="Center" FontWeight="Bold" FontFamily="Segoe UI"/>
+                                            </StackPanel>
+                                        </Border>
+                                    </Grid>
+                                </Border>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </ScrollViewer>
+            </Grid>
+        </Border>
+
+        <!-- Enhanced Gas Mode Selection -->
+        <Border Grid.Row="2" Background="{StaticResource LightGray}" Padding="30,20">
+            <Border.Effect>
+                <DropShadowEffect Color="#000000" BlurRadius="15" Opacity="0.3"/>
+            </Border.Effect>
+            <StackPanel>
+                <TextBlock Text="GAS SELECTION MODE" FontWeight="Bold" FontSize="18" 
+                           Margin="0,0,0,20" HorizontalAlignment="Center" 
+                           Foreground="{StaticResource TextWhite}" FontFamily="Segoe UI"/>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Spacing="10">
+                    <ItemsControl ItemsSource="{Binding GasModeOptions}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel Orientation="Horizontal" Spacing="10"/>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Button Content="{Binding DisplayName}"
+                                        Command="{Binding $parent[UserControl].DataContext.SetGasModeCommand}"
+                                        CommandParameter="{Binding Mode}"
+                                        Margin="8" Padding="20,12"
+                                        Background="{Binding Mode, Converter={StaticResource GasModeConverter}, ConverterParameter={Binding $parent[UserControl].DataContext.SelectedGasMode}}"
+                                        Foreground="{StaticResource TextWhite}" FontWeight="Bold" FontSize="13"
+                                        CornerRadius="10" FontFamily="Segoe UI">
+                                    <Button.Effect>
+                                        <DropShadowEffect Color="#000000" BlurRadius="8" Opacity="0.3"/>
+                                    </Button.Effect>
+                                </Button>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </StackPanel>
+            </StackPanel>
+        </Border>
+    </Grid>
+</UserControl> 

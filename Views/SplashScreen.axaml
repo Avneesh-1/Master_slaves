@@ -1,0 +1,30 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        x:Class="MasterSlaves.Avalonia.Views.SplashScreen"
+        Title="UNISSI - Master Slaves Gas Monitoring System"
+        Width="500" Height="400"
+        WindowStartupLocation="CenterScreen"
+        CanResize="False"
+        ShowInTaskbar="False"
+        Background="Transparent"
+        WindowState="Normal"
+        ExtendClientAreaToDecorationsHint="True"
+        ExtendClientAreaChromeHints="NoChrome"
+        ExtendClientAreaTitleBarHeightHint="-1"
+        TransparencyLevelHint="Transparent"
+        SystemDecorations="None">
+
+    <Window.Resources>
+        <!-- Professional Color Scheme -->
+        <SolidColorBrush x:Key="AccentGreen" Color="#10B981"/>
+    </Window.Resources>
+
+    <Grid>
+        <!-- UNISSI Logo Image - Full Screen -->
+        <Image Source="/Assets/Images/unissi_logo.png" 
+               Stretch="Uniform" 
+               HorizontalAlignment="Center" 
+               VerticalAlignment="Center"
+               MaxWidth="450" MaxHeight="350"/>
+    </Grid>
+</Window> 
