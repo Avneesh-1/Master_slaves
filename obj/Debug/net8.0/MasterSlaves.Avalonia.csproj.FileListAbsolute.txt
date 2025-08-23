@@ -79,3 +79,4 @@ C:\Users\MSI-1\OneDrive\Desktop\master slaves 2\MasterSlaves.Avalonia\bin\Debug\
 C:\Users\MSI-1\OneDrive\Desktop\master slaves 2\MasterSlaves.Avalonia\obj\Debug\net8.0\MasterSl.14510825.Up2Date
 C:\Users\MSI-1\OneDrive\Desktop\master slaves 2\MasterSlaves.Avalonia\obj\Debug\net8.0\MasterSlaves.Avalonia.genruntimeconfig.cache
 C:\Users\MSI-1\OneDrive\Desktop\master slaves 2\MasterSlaves.Avalonia\obj\Debug\net8.0\ref\MasterSlaves.Avalonia.dll
+C:\Users\MSI-1\OneDrive\Desktop\master slaves 2\MasterSlaves.Avalonia\obj\Debug\net8.0\MasterSlaves.Avalonia.sourcelink.json

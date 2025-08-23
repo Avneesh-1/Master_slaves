@@ -49,14 +49,25 @@
                         <Border Grid.Row="0" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,5,0,0">
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                                 <!-- MENU Button -->
-                                <Button Content="MENU" 
-                                        Margin="0,0,31,0" Padding="15,8,15,8"
+                                <Button Margin="0,0,31,0" Padding="5,8,5,8"
                                         FontWeight="Bold" FontSize="12"
                                         CornerRadius="8"
                                         HorizontalAlignment="Left" VerticalAlignment="Center"
-                                        HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                                        HorizontalContentAlignment="Stretch" VerticalContentAlignment="Center"
                                         MinHeight="35" Width="154"
                                         Command="{Binding OpenMenuCommand}">
+                                    <Grid>
+                                        <Image Source="/Assets/Images/home-button.png" 
+                                               Width="16" Height="15" 
+                                               HorizontalAlignment="Left"
+                                               Margin="5,-2,0,0"
+                                               VerticalAlignment="Center"/>
+                                        <TextBlock Text="MENU" 
+                                                   FontWeight="Bold" FontSize="12"
+                                                   Foreground="White"
+                                                   HorizontalAlignment="Center"
+                                                   VerticalAlignment="Center"/>
+                                    </Grid>
                                     <Button.Styles>
                                         <Style Selector="Button">
                                             <Setter Property="Background" Value="#404040"/>
@@ -80,13 +91,24 @@
                                 </Button>
                                 
                                 <!-- ALARM ACTIVE Button -->
-                                <Button Content="ALARM ACTIVE" 
-                                        Margin="0,0,31,0" Padding="15,8,15,8"
+                                <Button Margin="0,0,31,0" Padding="5,8,5,8"
                                         FontWeight="Bold" FontSize="12"
                                         CornerRadius="8"
                                         HorizontalAlignment="Left" VerticalAlignment="Center"
-                                        HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                                        HorizontalContentAlignment="Stretch" VerticalContentAlignment="Center"
                                         MinHeight="35"  Width="350">
+                                    <Grid>
+                                        <Image Source="/Assets/Images/notification.png" 
+                                               Width="20" Height="17" 
+                                               HorizontalAlignment="Left"
+                                               Margin="5,-2,0,0"
+                                               VerticalAlignment="Center"/>
+                                        <TextBlock Text="ALARM ACTIVE" 
+                                                   FontWeight="Bold" FontSize="12"
+                                                   Foreground="White"
+                                                   HorizontalAlignment="Center"
+                                                   VerticalAlignment="Center"/>
+                                    </Grid>
                                     <Button.Styles>
                                         <Style Selector="Button">
                                             <Setter Property="Background" Value="#F44336"/>
@@ -110,14 +132,25 @@
                                 </Button>
                                 
                                 <!-- BUZZER ALARM Button -->
-                                <Button Content="BUZZER ALARM" 
-                                        Margin="0,0,48,0" Padding="15,8,15,8"
+                                <Button Margin="0,0,48,0" Padding="5,8,5,8"
                                         FontWeight="Bold" FontSize="12"
                                         CornerRadius="8"
                                         HorizontalAlignment="Left" VerticalAlignment="Center"
-                                        HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                                        HorizontalContentAlignment="Stretch" VerticalContentAlignment="Center"
                                         MinHeight="35" Width="350"
                                         Command="{Binding BuzzerAlarmCommand}">
+                                    <Grid>
+                                        <Image Source="/Assets/Images/medium-volume.png" 
+                                               Width="20" Height="17" 
+                                               HorizontalAlignment="Left"
+                                               Margin="5,-2,0,0"
+                                               VerticalAlignment="Center"/>
+                                        <TextBlock Text="BUZZER ALARM" 
+                                                   FontWeight="Bold" FontSize="12"
+                                                   Foreground="White"
+                                                   HorizontalAlignment="Center"
+                                                   VerticalAlignment="Center"/>
+                                    </Grid>
                                     <Button.Styles>
                                         <Style Selector="Button">
                                             <Setter Property="Background" Value="#4CAF50"/>
