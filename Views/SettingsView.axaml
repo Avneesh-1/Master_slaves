@@ -45,56 +45,58 @@
         <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
             <StackPanel Margin="40" Spacing="20">
                 
-                <!-- Slave Button Name Settings -->
+                <!-- Individual Slave Name Settings -->
                 <Border Background="#404040" CornerRadius="10" Padding="20">
                     <StackPanel Spacing="15">
-                        <TextBlock Text="SLAVE BUTTON NAMES" 
+                        <TextBlock Text="INDIVIDUAL SLAVE NAMES" 
                                    FontSize="20" FontWeight="Bold" 
                                    Foreground="White"/>
                         
-                        <TextBlock Text="Edit the prefix for slave button names. Numbers 1-30 will be added automatically." 
+                        <TextBlock Text="Customize the name of each slave individually. Leave empty to use default name." 
                                    FontSize="14" Foreground="#CCCCCC"/>
                         
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto"/>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="Auto"/>
-                            </Grid.ColumnDefinitions>
-                            
-                            <TextBlock Grid.Column="0" Text="Button Prefix:" 
-                                       FontSize="16" FontWeight="Bold" 
-                                       Foreground="White" 
-                                       VerticalAlignment="Center"
-                                       Margin="0,0,15,0"/>
-                            
-                            <TextBox Grid.Column="1" Text="{Binding SlaveButtonPrefix}"
-                                     FontSize="16" Padding="10"
-                                     Background="#2D2D2D" Foreground="White"
-                                     BorderThickness="1" BorderBrush="#87CEEB"
-                                     CornerRadius="5"/>
-                            
-                            <Button Grid.Column="2" Content="APPLY" 
-                                    Background="#87CEEB" Foreground="Black"
-                                    FontWeight="Bold" FontSize="14"
-                                    Padding="15,10"
-                                    CornerRadius="5"
-                                    Margin="15,0,0,0"
-                                    Command="{Binding ApplyPrefixCommand}"/>
-                        </Grid>
-                        
-                        <!-- Preview -->
-                        <Border Background="#2D2D2D" CornerRadius="8" Padding="15">
-                            <StackPanel>
-                                <TextBlock Text="Preview:" 
-                                           FontSize="14" FontWeight="Bold" 
-                                           Foreground="White" 
-                                           Margin="0,0,0,10"/>
-                                
-                                <TextBlock Text="{Binding PreviewText}" 
-                                           FontSize="14" Foreground="#87CEEB"/>
-                            </StackPanel>
-                        </Border>
+                        <!-- Slave Names Grid -->
+                        <ScrollViewer MaxHeight="400" VerticalScrollBarVisibility="Auto">
+                            <ItemsControl ItemsSource="{Binding IndividualSlaveSettings}">
+                                <ItemsControl.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <UniformGrid Columns="2"/>
+                                    </ItemsPanelTemplate>
+                                </ItemsControl.ItemsPanel>
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <Border Background="#2D2D2D" CornerRadius="8" Padding="15" Margin="5">
+                                            <Grid>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="Auto"/>
+                                                    <RowDefinition Height="Auto"/>
+                                                    <RowDefinition Height="Auto"/>
+                                                </Grid.RowDefinitions>
+                                                
+                                                <TextBlock Grid.Row="0" 
+                                                           Text="{Binding SlaveId, StringFormat='Slave {0}'}" 
+                                                           FontSize="16" FontWeight="Bold" 
+                                                           Foreground="White" 
+                                                           Margin="0,0,0,10"/>
+                                                
+                                                <TextBox Grid.Row="1" 
+                                                         Text="{Binding CustomName}"
+                                                         FontSize="14" Padding="8"
+                                                         Background="#404040" Foreground="White"
+                                                         BorderThickness="1" BorderBrush="#87CEEB"
+                                                         CornerRadius="5"
+                                                         Margin="0,0,0,8"/>
+                                                
+                                                <TextBlock Grid.Row="2" 
+                                                           Text="{Binding DefaultName, StringFormat='Default: {0}'}" 
+                                                           FontSize="12" 
+                                                           Foreground="#AAAAAA"/>
+                                            </Grid>
+                                        </Border>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </ScrollViewer>
                     </StackPanel>
                 </Border>
 

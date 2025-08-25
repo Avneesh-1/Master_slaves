@@ -233,3 +233,4 @@ C:\Users\MSI-1\OneDrive\Desktop\master slaves 2\MasterSlaves.Avalonia\obj\Releas
 C:\Users\MSI-1\OneDrive\Desktop\master slaves 2\MasterSlaves.Avalonia\obj\Release\net8.0\linux-arm64\MasterSlaves.Avalonia.pdb
 C:\Users\MSI-1\OneDrive\Desktop\master slaves 2\MasterSlaves.Avalonia\obj\Release\net8.0\linux-arm64\MasterSlaves.Avalonia.genruntimeconfig.cache
 C:\Users\MSI-1\OneDrive\Desktop\master slaves 2\MasterSlaves.Avalonia\obj\Release\net8.0\linux-arm64\ref\MasterSlaves.Avalonia.dll
+C:\Users\MSI-1\OneDrive\Desktop\master slaves 2\MasterSlaves.Avalonia\obj\Release\net8.0\linux-arm64\MasterSlaves.Avalonia.sourcelink.json

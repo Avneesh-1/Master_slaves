@@ -20,7 +20,7 @@ public class MainWindowViewModel : INotifyPropertyChanged
     private bool _isSimulationRunning;
     private bool _isHardwareConnected;
     private string _connectionStatus = "Disconnected";
-    private string _raspberryPiIp = "192.168.1.46";
+    private string _raspberryPiIp = "Auto-Discover";
     private bool _isMenuOpen = false;
     private bool _isSettingsOpen = false;
     private SettingsViewModel? _settingsViewModel;
@@ -75,7 +75,7 @@ public class MainWindowViewModel : INotifyPropertyChanged
                 // Create or update slave detail view model
                 if (value != null)
                 {
-                    SlaveDetailViewModel = new SlaveDetailViewModel(_masterService, value, BackToMasterCommand);
+                    SlaveDetailViewModel = new SlaveDetailViewModel(_masterService, _configurationService, value, BackToMasterCommand);
                 }
                 else
                 {
@@ -226,11 +226,11 @@ public class MainWindowViewModel : INotifyPropertyChanged
     {
         SlaveButtons.Clear();
         var slaves = _masterService.GetAllSlaves();
-        var prefix = _configurationService.GetSlaveButtonPrefix();
         
         foreach (var slave in slaves)
         {
-            var button = new SlaveButtonViewModel(slave, prefix);
+            var customName = _configurationService.GetSlaveName(slave.Id);
+            var button = new SlaveButtonViewModel(slave, customName);
             SlaveButtons.Add(button);
         }
     }
@@ -388,18 +388,18 @@ public class MainWindowViewModel : INotifyPropertyChanged
 public class SlaveButtonViewModel : INotifyPropertyChanged
 {
     private readonly SlaveUnit _slave;
-    private readonly string _prefix;
+    private readonly string _displayName;
 
-    public SlaveButtonViewModel(SlaveUnit slave, string prefix = "INPUT P")
+    public SlaveButtonViewModel(SlaveUnit slave, string displayName)
     {
         _slave = slave;
-        _prefix = prefix;
+        _displayName = displayName;
         _slave.PropertyChanged += OnSlavePropertyChanged;
     }
 
     public int Id => _slave.Id;
     public string Name => _slave.Name;
-    public string DisplayName => $"{_prefix}{Id}";
+    public string DisplayName => _displayName;
     public bool IsConnected => _slave.IsConnected;
     public bool HasAlarm => _slave.AllGasReadings.Any(r => r.IsAlarmActive);
 

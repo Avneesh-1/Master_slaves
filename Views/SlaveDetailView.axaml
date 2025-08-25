@@ -14,6 +14,8 @@
         <converters:GasStatusConverter x:Key="GasStatusConverter"/>
         <converters:GasModeConverter x:Key="GasModeConverter"/>
         <converters:GasTypeColorConverter x:Key="GasTypeColorConverter"/>
+        <converters:GasTypeTextColorConverter x:Key="GasTypeTextColorConverter"/>
+        <converters:GasTypePressureTextColorConverter x:Key="GasTypePressureTextColorConverter"/>
         <converters:GasTypeDisplayNameConverter x:Key="GasTypeDisplayNameConverter"/>
         <converters:GasTypeUnitConverter x:Key="GasTypeUnitConverter"/>
         
@@ -46,7 +48,6 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
         <!-- Modern Professional Header -->
@@ -140,7 +141,7 @@
                                             </Border.Effect>
                                             <TextBlock Text="{Binding GasType, Converter={StaticResource GasTypeDisplayNameConverter}}"
                                                        FontSize="14" FontWeight="Bold" 
-                                                       Foreground="White"
+                                                       Foreground="{Binding GasType, Converter={StaticResource GasTypeTextColorConverter}}"
                                                        HorizontalAlignment="Center" FontFamily="Segoe UI"/>
                                         </Border>
                                         
@@ -150,7 +151,7 @@
                                             <StackPanel>
                                                 <TextBlock Text="{Binding Value, StringFormat='{}{0:F1}'}"
                                                            FontSize="28" FontWeight="Bold" 
-                                                           Foreground="{Binding GasType, Converter={StaticResource GasTypeColorConverter}}"
+                                                           Foreground="{Binding GasType, Converter={StaticResource GasTypePressureTextColorConverter}}"
                                                            HorizontalAlignment="Center" FontFamily="Segoe UI"/>
                                                 
                                                 <TextBlock Text="{Binding GasType, Converter={StaticResource GasTypeUnitConverter}}"
@@ -187,40 +188,6 @@
             </Grid>
         </Border>
 
-        <!-- Enhanced Gas Mode Selection -->
-        <Border Grid.Row="2" Background="{StaticResource LightGray}" Padding="30,20">
-            <Border.Effect>
-                <DropShadowEffect Color="#000000" BlurRadius="15" Opacity="0.3"/>
-            </Border.Effect>
-            <StackPanel>
-                <TextBlock Text="GAS SELECTION MODE" FontWeight="Bold" FontSize="18" 
-                           Margin="0,0,0,20" HorizontalAlignment="Center" 
-                           Foreground="{StaticResource TextWhite}" FontFamily="Segoe UI"/>
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Spacing="10">
-                    <ItemsControl ItemsSource="{Binding GasModeOptions}">
-                        <ItemsControl.ItemsPanel>
-                            <ItemsPanelTemplate>
-                                <StackPanel Orientation="Horizontal" Spacing="10"/>
-                            </ItemsPanelTemplate>
-                        </ItemsControl.ItemsPanel>
-                        <ItemsControl.ItemTemplate>
-                            <DataTemplate>
-                                <Button Content="{Binding DisplayName}"
-                                        Command="{Binding $parent[UserControl].DataContext.SetGasModeCommand}"
-                                        CommandParameter="{Binding Mode}"
-                                        Margin="8" Padding="20,12"
-                                        Background="{Binding Mode, Converter={StaticResource GasModeConverter}, ConverterParameter={Binding $parent[UserControl].DataContext.SelectedGasMode}}"
-                                        Foreground="{StaticResource TextWhite}" FontWeight="Bold" FontSize="13"
-                                        CornerRadius="10" FontFamily="Segoe UI">
-                                    <Button.Effect>
-                                        <DropShadowEffect Color="#000000" BlurRadius="8" Opacity="0.3"/>
-                                    </Button.Effect>
-                                </Button>
-                            </DataTemplate>
-                        </ItemsControl.ItemTemplate>
-                    </ItemsControl>
-                </StackPanel>
-            </StackPanel>
-        </Border>
+
     </Grid>
 </UserControl> 

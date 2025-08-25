@@ -10,31 +10,28 @@ namespace MasterSlaves.Avalonia.ViewModels;
 public class SlaveDetailViewModel : INotifyPropertyChanged
 {
     private readonly IMasterService _masterService;
+    private readonly IConfigurationService _configurationService;
     private readonly SlaveUnit _slave;
-    private int _selectedGasMode;
 
-    public SlaveDetailViewModel(IMasterService masterService, SlaveUnit slave, ICommand backToMasterCommand)
+    public SlaveDetailViewModel(IMasterService masterService, IConfigurationService configurationService, SlaveUnit slave, ICommand backToMasterCommand)
     {
         _masterService = masterService;
+        _configurationService = configurationService;
         _slave = slave;
         
         // Initialize commands
         MuteCommand = new RelayCommand(ToggleMute);
         SettingsCommand = new RelayCommand(OpenSettings);
         FlowCommand = new RelayCommand(ToggleFlowView);
-        SetGasModeCommand = new RelayCommand<int>(SetGasMode);
         BackToMasterCommand = backToMasterCommand;
         
         // Subscribe to slave property changes
         _slave.PropertyChanged += OnSlavePropertyChanged;
-        
-        // Initialize gas mode
-        SelectedGasMode = _slave.GasMode;
     }
 
     public SlaveUnit Slave => _slave;
     
-    public string SlaveName => _slave.Name;
+    public string SlaveName => _configurationService.GetSlaveName(_slave.Id);
     
     public bool IsMuted
     {
@@ -49,39 +46,16 @@ public class SlaveDetailViewModel : INotifyPropertyChanged
         }
     }
 
-    public int SelectedGasMode
-    {
-        get => _selectedGasMode;
-        set
-        {
-            if (_selectedGasMode != value)
-            {
-                _selectedGasMode = value;
-                OnPropertyChanged(nameof(SelectedGasMode));
-                _masterService.SetSlaveGasMode(_slave.Id, value);
-            }
-        }
-    }
+
 
     public bool IsFlowViewActive => _slave.IsFlowViewActive;
 
     public ObservableCollection<GasReading> VisibleGasReadings => _slave.VisibleGasReadings;
 
-    public ObservableCollection<GasModeOption> GasModeOptions { get; } = new()
-    {
-        new GasModeOption(1, "1 Gas"),
-        new GasModeOption(2, "2 Gas"),
-        new GasModeOption(3, "3 Gas"),
-        new GasModeOption(4, "4 Gas"),
-        new GasModeOption(5, "5 Gas"),
-        new GasModeOption(6, "6 Gas")
-    };
-
     // Commands
     public ICommand MuteCommand { get; }
     public ICommand SettingsCommand { get; }
     public ICommand FlowCommand { get; }
-    public ICommand SetGasModeCommand { get; }
     public ICommand BackToMasterCommand { get; }
 
     private void ToggleMute()
@@ -100,20 +74,13 @@ public class SlaveDetailViewModel : INotifyPropertyChanged
         OnPropertyChanged(nameof(IsFlowViewActive));
     }
 
-    private void SetGasMode(int gasMode)
-    {
-        SelectedGasMode = gasMode;
-    }
+
 
     private void OnSlavePropertyChanged(object? sender, PropertyChangedEventArgs e)
     {
         if (e.PropertyName == nameof(SlaveUnit.IsMuted))
         {
             OnPropertyChanged(nameof(IsMuted));
-        }
-        else if (e.PropertyName == nameof(SlaveUnit.GasMode))
-        {
-            SelectedGasMode = _slave.GasMode;
         }
         else if (e.PropertyName == nameof(SlaveUnit.IsFlowViewActive))
         {
@@ -130,17 +97,5 @@ public class SlaveDetailViewModel : INotifyPropertyChanged
     protected virtual void OnPropertyChanged(string propertyName)
     {
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-    }
-}
-
-public class GasModeOption
-{
-    public int Mode { get; }
-    public string DisplayName { get; }
-
-    public GasModeOption(int mode, string displayName)
-    {
-        Mode = mode;
-        DisplayName = displayName;
     }
 } 

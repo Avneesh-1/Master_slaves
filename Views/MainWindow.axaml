@@ -196,50 +196,65 @@
                                         FontWeight="Bold" FontSize="11"
                                         CornerRadius="8"
                                         HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
-                                        HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                                        HorizontalContentAlignment="Stretch" VerticalContentAlignment="Center"
                                         MinHeight="35">
-                                                    <Button.Styles>
-                    <Style Selector="Button">
-                        <Setter Property="Background" Value="#4CAF50"/>
-                        <Setter Property="Foreground" Value="#FFFFFF"/>
-                        <Setter Property="BorderThickness" Value="8"/>
-                        <Setter Property="BorderBrush" Value="#87CEEB"/>
-                        <Setter Property="CornerRadius" Value="50"/>
-                    </Style>
-                    <Style Selector="Button:pointerover">
-                        <Setter Property="Background" Value="#66BB6A"/>
-                        <Setter Property="BorderBrush" Value="#ADD8E6"/>
-                        <Setter Property="BorderThickness" Value="8"/>
-                        <Setter Property="CornerRadius" Value="50"/>
-                    </Style>
-                    <Style Selector="Button:pressed">
-                        <Setter Property="Background" Value="#388E3C"/>
-                        <Setter Property="BorderThickness" Value="8"/>
-                        <Setter Property="CornerRadius" Value="50"/>
-                    </Style>
-                    <!-- Red style for alarm state -->
-                    <Style Selector="Button.alarm">
-                        <Setter Property="Background" Value="#F44336"/>
-                        <Setter Property="BorderBrush" Value="#EF5350"/>
-                        <Setter Property="BorderThickness" Value="8"/>
-                        <Setter Property="CornerRadius" Value="50"/>
-                    </Style>
-                    <!-- Yellow style for warning state -->
-                    <Style Selector="Button.warning">
-                        <Setter Property="Background" Value="#FF9800"/>
-                        <Setter Property="BorderBrush" Value="#FFB74D"/>
-                        <Setter Property="Foreground" Value="Black"/>
-                        <Setter Property="BorderThickness" Value="8"/>
-                        <Setter Property="CornerRadius" Value="50"/>
-                    </Style>
-                </Button.Styles>
-                                    <TextBlock Text="{Binding DisplayName}" 
-                                               FontWeight="Bold" FontSize="16"
-                                               Foreground="#FFFFFF">
-                                        <TextBlock.Effect>
-                                            <DropShadowEffect Color="#FFFFFF" BlurRadius="4" Opacity="0.6"/>
-                                        </TextBlock.Effect>
-                                    </TextBlock>
+                                    <Grid>
+                                        <TextBlock Text="{Binding DisplayName}" 
+                                                   FontWeight="Bold" FontSize="16"
+                                                   Foreground="#FFFFFF"
+                                                   HorizontalAlignment="Center"
+                                                   VerticalAlignment="Center">
+                                            <TextBlock.Effect>
+                                                <DropShadowEffect Color="#FFFFFF" BlurRadius="4" Opacity="0.6"/>
+                                            </TextBlock.Effect>
+                                        </TextBlock>
+                                        <Button Background="Transparent" 
+                                                BorderThickness="0"
+                                                HorizontalAlignment="Left"
+                                                VerticalAlignment="Center"
+                                                Margin="0,0,8,0"
+                                                Width="20" Height="20"
+                                                Padding="2"
+                                                CornerRadius="10">
+                                            <Image Source="/Assets/Images/pressure-gauge (1).png" 
+                                                   Width="16" Height="16"/>
+                                        </Button>
+                                    </Grid>
+                                    <Button.Styles>
+                                        <Style Selector="Button">
+                                            <Setter Property="Background" Value="#4CAF50"/>
+                                            <Setter Property="Foreground" Value="#FFFFFF"/>
+                                            <Setter Property="BorderThickness" Value="8"/>
+                                            <Setter Property="BorderBrush" Value="#87CEEB"/>
+                                            <Setter Property="CornerRadius" Value="50"/>
+                                        </Style>
+                                        <Style Selector="Button:pointerover">
+                                            <Setter Property="Background" Value="#66BB6A"/>
+                                            <Setter Property="BorderBrush" Value="#ADD8E6"/>
+                                            <Setter Property="BorderThickness" Value="8"/>
+                                            <Setter Property="CornerRadius" Value="50"/>
+                                        </Style>
+                                        <Style Selector="Button:pressed">
+                                            <Setter Property="Background" Value="#388E3C"/>
+                                            <Setter Property="BorderThickness" Value="8"/>
+                                            <Setter Property="CornerRadius" Value="50"/>
+                                        </Style>
+                                        <!-- Red style for alarm state -->
+                                        <Style Selector="Button.alarm">
+                                            <Setter Property="Background" Value="#F44336"/>
+                                            <Setter Property="BorderBrush" Value="#EF5350"/>
+                                            <Setter Property="BorderThickness" Value="8"/>
+                                            <Setter Property="CornerRadius" Value="50"/>
+                                        </Style>
+                                        <!-- Yellow style for warning state -->
+                                        <Style Selector="Button.warning">
+                                            <Setter Property="Background" Value="#FF9800"/>
+                                            <Setter Property="BorderBrush" Value="#FFB74D"/>
+                                            <Setter Property="Foreground" Value="Black"/>
+                                            <Setter Property="BorderThickness" Value="8"/>
+                                            <Setter Property="CornerRadius" Value="50"/>
+                                        </Style>
+                                    </Button.Styles>
                                 </Button>
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>

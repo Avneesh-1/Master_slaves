@@ -13,12 +13,12 @@ public class GasTypeColorConverter : IValueConverter
         {
             return gasType switch
             {
-                GasType.Oxygen => "#4CAF50", // Green
-                GasType.Vacuum => "#9E9E9E", // Gray
-                GasType.CarbonDioxide => "#2196F3", // Blue
-                GasType.MedicalAir => "#FFC107", // Yellow
-                GasType.NitrousOxide => "#3F51B5", // Dark Blue
-                GasType.InstrumentAir => "#F44336", // Red
+                GasType.Oxygen => "#F5F5F5", // Off White
+                GasType.NitrousOxide => "#2196F3", // Blue
+                GasType.CarbonDioxide => "#9E9E9E", // Grey
+                GasType.MedicalAir => "#000000", // Black
+                GasType.InstrumentAir => "#000000", // Black
+                GasType.Vacuum => "#FFEB3B", // Yellow
                 _ => "#000000" // Black
             };
         }

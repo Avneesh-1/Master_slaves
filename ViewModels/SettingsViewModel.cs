@@ -1,4 +1,5 @@
 using System;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Windows.Input;
 using MasterSlaves.Core.Services;
@@ -17,6 +18,9 @@ public class SettingsViewModel : INotifyPropertyChanged
         BackCommand = backCommand;
         SaveCommand = new RelayCommand(SaveSettings);
         ApplyPrefixCommand = new RelayCommand(ApplyPrefix);
+        
+        // Initialize individual slave settings
+        IndividualSlaveSettings = new ObservableCollection<IndividualSlaveSettingViewModel>();
         
         // Load current settings
         LoadSettings();
@@ -49,6 +53,8 @@ public class SettingsViewModel : INotifyPropertyChanged
         }
     }
 
+    public ObservableCollection<IndividualSlaveSettingViewModel> IndividualSlaveSettings { get; }
+    
     public ICommand BackCommand { get; }
     public ICommand SaveCommand { get; }
     public ICommand ApplyPrefixCommand { get; }
@@ -62,6 +68,16 @@ public class SettingsViewModel : INotifyPropertyChanged
             if (!string.IsNullOrEmpty(savedPrefix))
             {
                 SlaveButtonPrefix = savedPrefix;
+            }
+            
+            // Load individual slave names
+            IndividualSlaveSettings.Clear();
+            var individualNames = _configurationService.GetIndividualSlaveNames();
+            
+            for (int i = 1; i <= 30; i++)
+            {
+                var currentName = individualNames.ContainsKey(i) ? individualNames[i] : $"{savedPrefix}{i}";
+                IndividualSlaveSettings.Add(new IndividualSlaveSettingViewModel(i, currentName));
             }
         }
         catch (Exception ex)
@@ -87,6 +103,16 @@ public class SettingsViewModel : INotifyPropertyChanged
         {
             // Save the prefix to configuration
             _configurationService.SetSlaveButtonPrefix(_slaveButtonPrefix);
+            
+            // Save individual slave names
+            foreach (var slaveSetting in IndividualSlaveSettings)
+            {
+                if (!string.IsNullOrEmpty(slaveSetting.CustomName))
+                {
+                    _configurationService.SetIndividualSlaveName(slaveSetting.SlaveId, slaveSetting.CustomName);
+                }
+            }
+            
             await _configurationService.SaveConfigurationAsync();
             
             // TODO: Show success message or notification
@@ -97,6 +123,41 @@ public class SettingsViewModel : INotifyPropertyChanged
             System.Diagnostics.Debug.WriteLine($"Failed to save settings: {ex.Message}");
         }
     }
+
+    public event PropertyChangedEventHandler? PropertyChanged;
+
+    protected virtual void OnPropertyChanged(string propertyName)
+    {
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+    }
+}
+
+public class IndividualSlaveSettingViewModel : INotifyPropertyChanged
+{
+    private string _customName = string.Empty;
+
+    public IndividualSlaveSettingViewModel(int slaveId, string currentName)
+    {
+        SlaveId = slaveId;
+        _customName = currentName;
+    }
+
+    public int SlaveId { get; }
+    
+    public string CustomName
+    {
+        get => _customName;
+        set
+        {
+            if (_customName != value)
+            {
+                _customName = value;
+                OnPropertyChanged(nameof(CustomName));
+            }
+        }
+    }
+
+    public string DefaultName => $"INPUT P{SlaveId}";
 
     public event PropertyChangedEventHandler? PropertyChanged;
 
